@@ -1,0 +1,11 @@
+# Переходим в папку проекта
+cd C:\Users\igors\PycharmProjects\PulseM
+
+# Обучение на вашем CSV (с синтетическими метками, быстро)
+python scripts/train.py --epochs 10 --lightweight
+
+# Обучение с реальными датасетами (если скачались)
+python scripts/train.py --dataset data/processed/mit_bih_segments.npz --epochs 50
+
+# Инференс на обученной модели
+python scripts/inference.py --model artifacts/ecg_artifact_detector.pth --data 2025-10-31_08_47_33.csv

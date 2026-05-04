@@ -1,0 +1,35 @@
+#! /bin/bash
+
+if [ -f credentials ]; then
+    source credentials
+else
+    echo "Error: credentials file not found!"
+    exit 1
+fi
+
+if [ "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
+    echo "Container ${CONTAINER_NAME} is already running. Logging in..."
+    docker exec -it ${CONTAINER_NAME} /bin/bash
+    exit 0
+fi
+
+docker run \
+  -d \
+  --shm-size=10g \
+  --memory=120g \
+  --cpus=16 \
+  --user ${DOCKER_USER_ID}:${DOCKER_GROUP_ID} \
+  --name ${CONTAINER_NAME} \
+  --rm -it --init \
+  --gpus '"device=1,2,3,4,5"' \
+  -v ${SRC}:/app \
+  -p 6006:6006 \
+  -p 8883:8883 \
+  -p 8081:8081 \
+  -e LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true \
+  -e LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/app/data \
+  -e LABEL_STUDIO_DISABLE_CSRF_PROTECTION=true \
+  -e LABEL_STUDIO_CORS_ALLOW_ALL=true \
+  ${DOCKER_NAME} bash -c "jupyter notebook --allow-root --ip='0.0.0.0' --port=8883 --NotebookApp.token='' --NotebookApp.password=''"
+
+docker exec -it ${CONTAINER_NAME} /bin/bash

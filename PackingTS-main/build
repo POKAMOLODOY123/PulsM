@@ -1,0 +1,14 @@
+#! /bin/bash
+
+if [ -f credentials ]; then
+    source credentials
+else
+    echo "Error: credentials file not found!"
+    exit 1
+fi
+
+docker build -t ${DOCKER_NAME} . \
+        --no-cache \
+        --build-arg DOCKER_NAME=${DOCKER_NAME} \
+        --build-arg DOCKER_USER_ID=${DOCKER_USER_ID} \
+        --build-arg DOCKER_GROUP_ID=${DOCKER_GROUP_ID}

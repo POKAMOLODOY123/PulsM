@@ -1,0 +1,9 @@
+# Минимальные зависимости только для REST API инференса (без обучения).
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+pandas
+numpy
+scikit-learn
+pyyaml
+joblib
+scipy

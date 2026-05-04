@@ -1,0 +1,14 @@
+.git
+.idea
+.vscode
+__pycache__
+*.pyc
+*.pyo
+.venv
+.venv_labelstudio
+notebooks
+PackingTS-main
+data
+scripts
+artifacts/label_prep
+archive
