@@ -77,3 +77,5 @@ data/processed/
 temp/
 tmp/
 
+# Local reference projects (not part of microservice deliverable)
+PackingTS-main/
