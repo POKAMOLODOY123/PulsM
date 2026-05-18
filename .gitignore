@@ -67,7 +67,8 @@ desktop.ini
 best_model.h5
 training_metrics.json
 checkpoints/
-artifacts/
+artifacts/*
+!artifacts/ecg_rf_artifact_model_labelstudio.joblib
 data/raw/
 data/processed/
 
